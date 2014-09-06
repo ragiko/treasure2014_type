@@ -6,24 +6,47 @@
     w.app = new Vue({
         el: '#demo',
         data: {
-            message: 0,
+            time: 0,
             typeTextArray: "",
             startTime: null,
             timer: null,
             isWatchTyping: false,
         },
         ready: function () {
-            this.start();
-            this.makeTypeText();
+            this.init();
         },
         methods: {
-            start: function () {
-                // dataを取得
-                var now = new Date();
-                this.startTime = now.getTime();
-                
+            init: function () {
                 // inputを空白にして空白
                 $(".type-input").val("").focus();
+
+                // タイピング用のDOM作成
+                this.typeTextArray = "treasure2014".split("");
+
+            },
+            onKeyType: function () {
+                // 打ち初めに計測
+                if (!this.isWatchTyping) {
+                    // dataを取得
+                    var now = new Date();
+                    this.startTime = now.getTime();
+
+                    // 時間の計測開始
+                    this.timeCount();
+                    this.isWatchTyping = !this.isWatchTyping ? true : false; 
+                }
+
+                // タイピングロジック
+                var $t = $(".type-char:not(.completed)").first();
+
+                if ($t.text() === $(".type-input").val().slice(-1)) {
+                    $t.addClass("completed");
+                } 
+
+                // タイピング終了条件
+                if ($(".type-char:not(.completed)").length == 0 ) {
+                    clearInterval(this.timer);
+                }
             },
             timeCount: function () {
                 var that = this;
@@ -31,34 +54,16 @@
                 this.timer = setInterval(function () {
                     var now = new Date();
 
-                    that.message = (now.getTime() - that.startTime)/1000;
+                    that.time = (now.getTime() - that.startTime)/1000;
                 }, 1);
-
             },
-            // タイピング用のDOM作成
-            makeTypeText: function () {
-                this.typeTextArray = "treasure2014".split("");
-            }, 
-            onKeyType: function () {
-                // エンター押したときにリセット
-
-
-                // 打ち初めに計測
-                if (!this.isWatchTyping) {
-                    this.timeCount();
-                    this.isWatchTyping = !this.isWatchTyping ? true : false; 
-                }
-
-
-                var $t = $(".type-char:not(.completed)").first();
-
-                if ($t.text() === $(".type-input").val().slice(-1)) {
-                    $t.addClass("completed");
-                } 
-
-                if ($(".type-char:not(.completed)").length == 0 ) {
-                    clearInterval(this.timer);
-                }
+            reset: function () {
+                
+                clearInterval(this.timer);  // タイマーを終了
+                this.time = 0;              // タイマーのテキストを更新
+                this.isWatchTyping = false; // タイマーが移動しているのを終了 
+                $(".type-input").val("");   // inputのクリア
+                $(".type-char").removeClass("completed"); 
             }
         },
     });

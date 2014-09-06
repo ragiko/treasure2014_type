@@ -11,16 +11,16 @@
     .miss {
         color: blue !important;
     }
- 
     </style>
 <body>
 <div id="demo">
-    <p>{{message}}</p>
+    <p>{{time}}</p>
     <span v-repeat="typeTextArray" id="type-char-{{$index}}" class="type-char">{{$value}}</span>
     <br/>
     <input class="type-input" v-on='
         keyup: onKeyType,
-        keydown: onKeyType 
+        keydown: onKeyType,
+        keyup: reset | key enter
     '>
     </input>
 </div>
