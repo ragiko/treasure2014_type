@@ -4,11 +4,25 @@
     <meta charset="UTF-8">
     <title></title>
 	</head>
+    <style>
+    .completed {
+        color: red;
+    }
+    .miss {
+        color: blue !important;
+    }
+ 
+    </style>
 <body>
 <div id="demo">
     <p>{{message}}</p>
-    <h2 class="type-text">test</h2>
-    <input class="type-input" v-on='keydown: test'></input>
+    <span v-repeat="typeTextArray" id="type-char-{{$index}}" class="type-char">{{$value}}</span>
+    <br/>
+    <input class="type-input" v-on='
+        keyup: onKeyType,
+        keydown: onKeyType 
+    '>
+    </input>
 </div>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.10.5/vue.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
