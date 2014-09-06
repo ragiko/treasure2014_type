@@ -10,11 +10,11 @@
             typeTextArray: "",
             startTime: null,
             timer: null,
+            isWatchTyping: false,
         },
         ready: function () {
             this.start();
             this.makeTypeText();
-            this.timeCount();
         },
         methods: {
             start: function () {
@@ -40,7 +40,17 @@
                 this.typeTextArray = "treasure2014".split("");
             }, 
             onKeyType: function () {
-                var $t = $(".type-char:not(.completed)").first(
+                // エンター押したときにリセット
+
+
+                // 打ち初めに計測
+                if (!this.isWatchTyping) {
+                    this.timeCount();
+                    this.isWatchTyping = !this.isWatchTyping ? true : false; 
+                }
+
+
+                var $t = $(".type-char:not(.completed)").first();
 
                 if ($t.text() === $(".type-input").val().slice(-1)) {
                     $t.addClass("completed");
