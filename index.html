@@ -3,29 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-	</head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <style>
     .completed {
-        color: red;
+        color: #e74c3c;
     }
     .miss {
         color: blue !important;
     }
+    .type-input  {
+        border: 0;
+        color: white;
+    }
+    .time {
+        font-size: 50px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .note {
+        font-size: 27px;
+        color: #34495e;
+        margin-bottom: 33px;
+    }
+    .type-text {
+        font-size: 80px;
+        background: #2ecc71;
+        color: #ecf0f1;
+    }
+    .complete-note {
+        font-size: 70px;
+        color: #e74c3c;
+        display: none;
+    }
+    #demo {
+        text-align: center;
+    }
+    body {
+        padding-top: 70px;
+    }
     </style>
+</head>
 <body>
-<div id="demo">
-    <p>{{time}}</p>
-    <span v-repeat="typeTextArray" id="type-char-{{$index}}" class="type-char">{{$value}}</span>
-    <br/>
-    <input class="type-input" v-on='
+
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">ぼやちゃれ</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="#">Ranking</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+    <div id="demo">
+        <p class="time">Time: {{time}}</p>
+        <p class="note">Press ENTER to Retry!</p>
+        <div class="type-text">
+            <span v-repeat="typeTextArray" id="type-char-{{$index}}" class="type-char">{{$value}}</span>
+        </div>
+        <br/>
+        <input class="type-input" v-on='
         keyup: onKeyType,
         keydown: onKeyType,
         keyup: reset | key enter
-    '>
-    </input>
+        '>
+        </input>
+        <p class="complete-note">Type it quickly!</p>
+    </div>
 </div>
+
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.10.5/vue.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="./api.js"></script>
+<script type="text/javascript" src="./app.js"></script>
 </body>
 </html>
